@@ -1,7 +1,13 @@
 #include <spdlog/spdlog.h>
 #include "../generators.h"
 namespace webifc::geometry::generators {
-	void GenerateIfcCartesianTransformationOperator2DnonUniformImpl(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache) {
+	glm::dmat2 GenerateIfcCartesianTransformationOperator2DnonUniform(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings) {
+		auto cacheHit = cache.Get<glm::dmat2>(expressID);
+		if (cacheHit.has_value()) return cacheHit->get();
 		spdlog::debug("[GenerateIfcCartesianTransformationOperator2DnonUniformImpl({})]", expressID);
+		glm::dmat2 result;
+		
+		cache.Cache(expressID,result);
+		return result;
 	}
 }

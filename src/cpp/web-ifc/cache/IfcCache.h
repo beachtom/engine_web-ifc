@@ -6,7 +6,9 @@
 
 #include <unordered_map>
 #include <vector>
+#include <any>
 #include <cstdint>
+#include <functional>
 #include <glm/glm.hpp>
 
 #include "../parsing/IfcLoader.h"
@@ -33,6 +35,18 @@ namespace webifc::cache
     ankerl::unordered_dense::map<uint32_t, glm::dvec3> &GetCartesianPoint3DCache();
     ankerl::unordered_dense::map<uint32_t, glm::dvec2> &GetCartesianPoint2DCache();
     ankerl::unordered_dense::map<uint32_t, glm::dmat4> &GetExpressIDToPlacement();
+    bool hasCachedGeometry(uint32_t expressId);
+    template <typename T> void Cache(uint32_t expressId,T &&value)
+    {
+      _cache[expressId] = std::forward<T>(value);
+    }
+    template <typename T> std::optional<std::reference_wrapper<T>> Get(uint32_t expressId)
+    {
+       auto it = _cache.find(expressId);
+       if (it == _cache.end()) return std::nullopt;
+       return std::ref(*std::any_cast<T>(&it->second));
+    }
+    
     double GetLinearScalingFactor() const;
     double GetAngularScalingFactor() const;
     std::string GetAngleUnits() const;
@@ -41,6 +55,8 @@ namespace webifc::cache
     IfcCache(const webifc::parsing::IfcLoader &loader, const ankerl::unordered_dense::map<uint32_t, std::vector<uint32_t>> &relVoids, const ankerl::unordered_dense::map<uint32_t, std::vector<uint32_t>> &relNests, const ankerl::unordered_dense::map<uint32_t, std::vector<uint32_t>> &relAggregates, const ankerl::unordered_dense::map<uint32_t, std::vector<std::pair<uint32_t, uint32_t>>> &styledItems, const ankerl::unordered_dense::map<uint32_t, std::vector<std::pair<uint32_t, uint32_t>>> &relMaterials, const ankerl::unordered_dense::map<uint32_t, std::vector<std::pair<uint32_t, uint32_t>>> &materialDefinitions, double linearScalingFactor, double squaredScalingFactor, double cubicScalingFactor, double angularScalingFactor, std::string angleUnits, const std::vector<geometry::IfcCurve> &localCurvesList, const std::vector<uint32_t> &localcurvesIndices, ankerl::unordered_dense::map<uint32_t, glm::dmat4> expressIDToPlacement);
     //variables
     const webifc::parsing::IfcLoader &_loader;
+    ankerl::unordered_dense::map<uint32_t, std::any> _cache;
+    
     ankerl::unordered_dense::map<uint32_t, std::vector<uint32_t>> _relVoids;
     ankerl::unordered_dense::map<uint32_t, std::vector<uint32_t>> _relNests;
     ankerl::unordered_dense::map<uint32_t, std::vector<uint32_t>> _relAggregates;
