@@ -1,9 +1,11 @@
 #include <spdlog/spdlog.h>
 #include "../generators.h"
 namespace webifc::geometry::generators {
-	glm::dmat4 GenerateIfcCartesianTransformationOperator3DImpl(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings) {
-		auto cacheHit = cache.Get<glm::dmat4>(expressID);
-		if (cacheHit.has_value()) return cacheHit->get();
+	glm::dmat4 GenerateIfcCartesianTransformationOperator3DImpl(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+		if (!cacheOff) {
+			auto cacheHit = cache.Get<glm::dmat4>(expressID);
+			if (cacheHit.has_value()) return cacheHit->get();
+		}
 		spdlog::debug("[GenerateIfcCartesianTransformationOperator3DImpl({})]", expressID);
 		double scale = 1.0;
         glm::dvec3 axis1(1, 0, 0);
@@ -48,7 +50,7 @@ namespace webifc::geometry::generators {
             glm::dvec4(axis3 * scale, 0),
             glm::dvec4(localOrigin, 1));
 
-		cache.Cache(expressID,result);
+		if (!cacheOff) cache.Cache(expressID,result);
 		return result;
 	}
 }
