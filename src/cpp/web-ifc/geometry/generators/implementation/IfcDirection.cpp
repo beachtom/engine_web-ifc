@@ -5,8 +5,8 @@ namespace webifc::geometry::generators {
 		auto cacheHit = cache.Get<glm::dvec3>(expressID);
 		if (cacheHit.has_value()) return cacheHit->get();
 		spdlog::debug("[GenerateIfcDirectionImpl({})]", expressID);
-		glm::dvec3 result;
-		
+		glm::dvec3 result = GenerateIfcCartesianPoint(expressID,lineType,loader,cache,settings);
+		result = glm::normalize(result);
 		cache.Cache(expressID,result);
 		return result;
 	}
