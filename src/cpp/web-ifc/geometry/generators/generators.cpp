@@ -1,6 +1,6 @@
 #include "generators.h"
 namespace webifc::geometry::generators {
-std::variant<glm::dvec3,IfcGeometry,std::vector<glm::dvec3>> GenerateIfcTopologicalRepresentationItem(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::variant<glm::dvec3,IfcGeometry,std::vector<glm::dvec3>> GenerateIfcTopologicalRepresentationItem(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCVERTEX:
 				return GenerateIfcVertex(expressID,lineType,loader,cache,settings,cacheOff);
@@ -27,7 +27,7 @@ std::variant<glm::dvec3,IfcGeometry,std::vector<glm::dvec3>> GenerateIfcTopologi
 	std::variant<glm::dvec3,IfcGeometry,std::vector<glm::dvec3>> result;
 	return result;
 	}
-glm::dvec3 GenerateIfcVertex(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+glm::dvec3 GenerateIfcVertex(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCVERTEXPOINT:
 				return GenerateIfcVertexPoint(expressID,lineType,loader,cache,settings,cacheOff);
@@ -36,7 +36,7 @@ glm::dvec3 GenerateIfcVertex(const uint32_t expressID, const uint32_t lineType, 
 				return GenerateIfcVertexImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-IfcGeometry GenerateIfcConnectedFaceSet(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+IfcGeometry GenerateIfcConnectedFaceSet(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCOPENSHELL:
 				return GenerateIfcOpenShell(expressID,lineType,loader,cache,settings,cacheOff);
@@ -48,7 +48,7 @@ IfcGeometry GenerateIfcConnectedFaceSet(const uint32_t expressID, const uint32_t
 				return GenerateIfcConnectedFaceSetImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-std::vector<glm::dvec3> GenerateIfcEdge(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcEdge(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCEDGECURVE:
 				return GenerateIfcEdgeCurve(expressID,lineType,loader,cache,settings,cacheOff);
@@ -63,7 +63,7 @@ std::vector<glm::dvec3> GenerateIfcEdge(const uint32_t expressID, const uint32_t
 				return GenerateIfcEdgeImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-std::vector<glm::dvec3> GenerateIfcFace(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcFace(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCFACESURFACE:
 				return GenerateIfcFaceSurface(expressID,lineType,loader,cache,settings,cacheOff);
@@ -72,7 +72,7 @@ std::vector<glm::dvec3> GenerateIfcFace(const uint32_t expressID, const uint32_t
 				return GenerateIfcFaceImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-std::vector<glm::dvec3> GenerateIfcFaceSurface(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcFaceSurface(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCADVANCEDFACE:
 				return GenerateIfcAdvancedFace(expressID,lineType,loader,cache,settings,cacheOff);
@@ -81,7 +81,7 @@ std::vector<glm::dvec3> GenerateIfcFaceSurface(const uint32_t expressID, const u
 				return GenerateIfcFaceSurfaceImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-std::vector<glm::dvec3> GenerateIfcFaceBound(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcFaceBound(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCFACEOUTERBOUND:
 				return GenerateIfcFaceOuterBound(expressID,lineType,loader,cache,settings,cacheOff);
@@ -90,7 +90,7 @@ std::vector<glm::dvec3> GenerateIfcFaceBound(const uint32_t expressID, const uin
 				return GenerateIfcFaceBoundImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-std::vector<glm::dvec3> GenerateIfcLoop(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcLoop(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCPOLYLOOP:
 				return GenerateIfcPolyLoop(expressID,lineType,loader,cache,settings,cacheOff);
@@ -105,7 +105,7 @@ std::vector<glm::dvec3> GenerateIfcLoop(const uint32_t expressID, const uint32_t
 				return GenerateIfcLoopImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-std::variant<IfcGeometry,glm::dvec4,glm::dmat4,std::vector<glm::dvec3>,glm::dvec3,std::vector<glm::dvec2>,glm::dmat2> GenerateIfcGeometricRepresentationItem(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::variant<IfcGeometry,glm::dvec4,glm::dmat4,std::vector<glm::dvec3>,glm::dvec3,std::vector<glm::dvec2>,glm::dmat2> GenerateIfcGeometricRepresentationItem(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCGEOMETRICSET:
 				return GenerateIfcGeometricSet(expressID,lineType,loader,cache,settings,cacheOff);
@@ -186,7 +186,7 @@ std::variant<IfcGeometry,glm::dvec4,glm::dmat4,std::vector<glm::dvec3>,glm::dvec
 	std::variant<IfcGeometry,glm::dvec4,glm::dmat4,std::vector<glm::dvec3>,glm::dvec3,std::vector<glm::dvec2>,glm::dmat2> result;
 	return result;
 	}
-IfcGeometry GenerateIfcGeometricSet(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+IfcGeometry GenerateIfcGeometricSet(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCGEOMETRICCURVESET:
 				return GenerateIfcGeometricCurveSet(expressID,lineType,loader,cache,settings,cacheOff);
@@ -195,7 +195,7 @@ IfcGeometry GenerateIfcGeometricSet(const uint32_t expressID, const uint32_t lin
 				return GenerateIfcGeometricSetImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-IfcGeometry GenerateIfcHalfSpaceSolid(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+IfcGeometry GenerateIfcHalfSpaceSolid(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCPOLYGONALBOUNDEDHALFSPACE:
 				return GenerateIfcPolygonalBoundedHalfSpace(expressID,lineType,loader,cache,settings,cacheOff);
@@ -207,7 +207,7 @@ IfcGeometry GenerateIfcHalfSpaceSolid(const uint32_t expressID, const uint32_t l
 				return GenerateIfcHalfSpaceSolidImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-glm::dvec4 GenerateIfcLightSource(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+glm::dvec4 GenerateIfcLightSource(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCLIGHTSOURCEAMBIENT:
 				return GenerateIfcLightSourceAmbient(expressID,lineType,loader,cache,settings,cacheOff);
@@ -225,7 +225,7 @@ glm::dvec4 GenerateIfcLightSource(const uint32_t expressID, const uint32_t lineT
 	glm::dvec4 result;
 	return result;
 	}
-glm::dvec4 GenerateIfcLightSourcePositional(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+glm::dvec4 GenerateIfcLightSourcePositional(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCLIGHTSOURCESPOT:
 				return GenerateIfcLightSourceSpot(expressID,lineType,loader,cache,settings,cacheOff);
@@ -234,7 +234,7 @@ glm::dvec4 GenerateIfcLightSourcePositional(const uint32_t expressID, const uint
 				return GenerateIfcLightSourcePositionalImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-glm::dmat4 GenerateIfcPlacement(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+glm::dmat4 GenerateIfcPlacement(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCAXIS1PLACEMENT:
 				return GenerateIfcAxis1Placement(expressID,lineType,loader,cache,settings,cacheOff);
@@ -252,7 +252,7 @@ glm::dmat4 GenerateIfcPlacement(const uint32_t expressID, const uint32_t lineTyp
 	glm::dmat4 result;
 	return result;
 	}
-std::vector<glm::dvec3> GenerateIfcPlanarExtent(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcPlanarExtent(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCPLANARBOX:
 				return GenerateIfcPlanarBox(expressID,lineType,loader,cache,settings,cacheOff);
@@ -261,7 +261,7 @@ std::vector<glm::dvec3> GenerateIfcPlanarExtent(const uint32_t expressID, const 
 				return GenerateIfcPlanarExtentImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-glm::dvec3 GenerateIfcPoint(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+glm::dvec3 GenerateIfcPoint(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCPOINTBYDISTANCEEXPRESSION:
 				return GenerateIfcPointByDistanceExpression(expressID,lineType,loader,cache,settings,cacheOff);
@@ -279,7 +279,7 @@ glm::dvec3 GenerateIfcPoint(const uint32_t expressID, const uint32_t lineType, w
 	glm::dvec3 result;
 	return result;
 	}
-std::vector<glm::dvec3> GenerateIfcSegment(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcSegment(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCCOMPOSITECURVESEGMENT:
 				return GenerateIfcCompositeCurveSegment(expressID,lineType,loader,cache,settings,cacheOff);
@@ -291,7 +291,7 @@ std::vector<glm::dvec3> GenerateIfcSegment(const uint32_t expressID, const uint3
 	std::vector<glm::dvec3> result;
 	return result;
 	}
-std::vector<glm::dvec3> GenerateIfcCompositeCurveSegment(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcCompositeCurveSegment(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCREPARAMETRISEDCOMPOSITECURVESEGMENT:
 				return GenerateIfcReparametrisedCompositeCurveSegment(expressID,lineType,loader,cache,settings,cacheOff);
@@ -300,7 +300,7 @@ std::vector<glm::dvec3> GenerateIfcCompositeCurveSegment(const uint32_t expressI
 				return GenerateIfcCompositeCurveSegmentImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-IfcGeometry GenerateIfcSolidModel(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+IfcGeometry GenerateIfcSolidModel(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCSWEPTAREASOLID:
 				return GenerateIfcSweptAreaSolid(expressID,lineType,loader,cache,settings,cacheOff);
@@ -321,7 +321,7 @@ IfcGeometry GenerateIfcSolidModel(const uint32_t expressID, const uint32_t lineT
 	IfcGeometry result;
 	return result;
 	}
-IfcGeometry GenerateIfcSweptAreaSolid(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+IfcGeometry GenerateIfcSweptAreaSolid(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCDIRECTRIXCURVESWEPTAREASOLID:
 				return GenerateIfcDirectrixCurveSweptAreaSolid(expressID,lineType,loader,cache,settings,cacheOff);
@@ -336,7 +336,7 @@ IfcGeometry GenerateIfcSweptAreaSolid(const uint32_t expressID, const uint32_t l
 	IfcGeometry result;
 	return result;
 	}
-IfcGeometry GenerateIfcDirectrixCurveSweptAreaSolid(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+IfcGeometry GenerateIfcDirectrixCurveSweptAreaSolid(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCFIXEDREFERENCESWEPTAREASOLID:
 				return GenerateIfcFixedReferenceSweptAreaSolid(expressID,lineType,loader,cache,settings,cacheOff);
@@ -348,7 +348,7 @@ IfcGeometry GenerateIfcDirectrixCurveSweptAreaSolid(const uint32_t expressID, co
 	IfcGeometry result;
 	return result;
 	}
-IfcGeometry GenerateIfcFixedReferenceSweptAreaSolid(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+IfcGeometry GenerateIfcFixedReferenceSweptAreaSolid(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCDIRECTRIXDERIVEDREFERENCESWEPTAREASOLID:
 				return GenerateIfcDirectrixDerivedReferenceSweptAreaSolid(expressID,lineType,loader,cache,settings,cacheOff);
@@ -357,7 +357,7 @@ IfcGeometry GenerateIfcFixedReferenceSweptAreaSolid(const uint32_t expressID, co
 				return GenerateIfcFixedReferenceSweptAreaSolidImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-IfcGeometry GenerateIfcExtrudedAreaSolid(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+IfcGeometry GenerateIfcExtrudedAreaSolid(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCEXTRUDEDAREASOLIDTAPERED:
 				return GenerateIfcExtrudedAreaSolidTapered(expressID,lineType,loader,cache,settings,cacheOff);
@@ -366,7 +366,7 @@ IfcGeometry GenerateIfcExtrudedAreaSolid(const uint32_t expressID, const uint32_
 				return GenerateIfcExtrudedAreaSolidImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-IfcGeometry GenerateIfcRevolvedAreaSolid(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+IfcGeometry GenerateIfcRevolvedAreaSolid(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCREVOLVEDAREASOLIDTAPERED:
 				return GenerateIfcRevolvedAreaSolidTapered(expressID,lineType,loader,cache,settings,cacheOff);
@@ -375,7 +375,7 @@ IfcGeometry GenerateIfcRevolvedAreaSolid(const uint32_t expressID, const uint32_
 				return GenerateIfcRevolvedAreaSolidImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-IfcGeometry GenerateIfcSweptDiskSolid(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+IfcGeometry GenerateIfcSweptDiskSolid(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCSWEPTDISKSOLIDPOLYGONAL:
 				return GenerateIfcSweptDiskSolidPolygonal(expressID,lineType,loader,cache,settings,cacheOff);
@@ -384,7 +384,7 @@ IfcGeometry GenerateIfcSweptDiskSolid(const uint32_t expressID, const uint32_t l
 				return GenerateIfcSweptDiskSolidImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-IfcGeometry GenerateIfcManifoldSolidBrep(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+IfcGeometry GenerateIfcManifoldSolidBrep(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCADVANCEDBREP:
 				return GenerateIfcAdvancedBrep(expressID,lineType,loader,cache,settings,cacheOff);
@@ -396,7 +396,7 @@ IfcGeometry GenerateIfcManifoldSolidBrep(const uint32_t expressID, const uint32_
 	IfcGeometry result;
 	return result;
 	}
-IfcGeometry GenerateIfcAdvancedBrep(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+IfcGeometry GenerateIfcAdvancedBrep(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCADVANCEDBREPWITHVOIDS:
 				return GenerateIfcAdvancedBrepWithVoids(expressID,lineType,loader,cache,settings,cacheOff);
@@ -405,7 +405,7 @@ IfcGeometry GenerateIfcAdvancedBrep(const uint32_t expressID, const uint32_t lin
 				return GenerateIfcAdvancedBrepImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-IfcGeometry GenerateIfcFacetedBrep(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+IfcGeometry GenerateIfcFacetedBrep(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCFACETEDBREPWITHVOIDS:
 				return GenerateIfcFacetedBrepWithVoids(expressID,lineType,loader,cache,settings,cacheOff);
@@ -414,7 +414,7 @@ IfcGeometry GenerateIfcFacetedBrep(const uint32_t expressID, const uint32_t line
 				return GenerateIfcFacetedBrepImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-IfcGeometry GenerateIfcSectionedSolid(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+IfcGeometry GenerateIfcSectionedSolid(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCSECTIONEDSOLIDHORIZONTAL:
 				return GenerateIfcSectionedSolidHorizontal(expressID,lineType,loader,cache,settings,cacheOff);
@@ -423,7 +423,7 @@ IfcGeometry GenerateIfcSectionedSolid(const uint32_t expressID, const uint32_t l
 	IfcGeometry result;
 	return result;
 	}
-std::vector<glm::dvec3> GenerateIfcSurface(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcSurface(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCSWEPTSURFACE:
 				return GenerateIfcSweptSurface(expressID,lineType,loader,cache,settings,cacheOff);
@@ -441,7 +441,7 @@ std::vector<glm::dvec3> GenerateIfcSurface(const uint32_t expressID, const uint3
 	std::vector<glm::dvec3> result;
 	return result;
 	}
-std::vector<glm::dvec3> GenerateIfcSweptSurface(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcSweptSurface(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCSURFACEOFLINEAREXTRUSION:
 				return GenerateIfcSurfaceOfLinearExtrusion(expressID,lineType,loader,cache,settings,cacheOff);
@@ -453,7 +453,7 @@ std::vector<glm::dvec3> GenerateIfcSweptSurface(const uint32_t expressID, const 
 	std::vector<glm::dvec3> result;
 	return result;
 	}
-std::vector<glm::dvec3> GenerateIfcBoundedSurface(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcBoundedSurface(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCCURVEBOUNDEDPLANE:
 				return GenerateIfcCurveBoundedPlane(expressID,lineType,loader,cache,settings,cacheOff);
@@ -471,7 +471,7 @@ std::vector<glm::dvec3> GenerateIfcBoundedSurface(const uint32_t expressID, cons
 	std::vector<glm::dvec3> result;
 	return result;
 	}
-std::vector<glm::dvec3> GenerateIfcBSplineSurface(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcBSplineSurface(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCBSPLINESURFACEWITHKNOTS:
 				return GenerateIfcBSplineSurfaceWithKnots(expressID,lineType,loader,cache,settings,cacheOff);
@@ -480,7 +480,7 @@ std::vector<glm::dvec3> GenerateIfcBSplineSurface(const uint32_t expressID, cons
 	std::vector<glm::dvec3> result;
 	return result;
 	}
-std::vector<glm::dvec3> GenerateIfcBSplineSurfaceWithKnots(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcBSplineSurfaceWithKnots(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCRATIONALBSPLINESURFACEWITHKNOTS:
 				return GenerateIfcRationalBSplineSurfaceWithKnots(expressID,lineType,loader,cache,settings,cacheOff);
@@ -489,7 +489,7 @@ std::vector<glm::dvec3> GenerateIfcBSplineSurfaceWithKnots(const uint32_t expres
 				return GenerateIfcBSplineSurfaceWithKnotsImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-std::vector<glm::dvec3> GenerateIfcElementarySurface(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcElementarySurface(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCPLANE:
 				return GenerateIfcPlane(expressID,lineType,loader,cache,settings,cacheOff);
@@ -507,7 +507,7 @@ std::vector<glm::dvec3> GenerateIfcElementarySurface(const uint32_t expressID, c
 	std::vector<glm::dvec3> result;
 	return result;
 	}
-IfcGeometry GenerateIfcTessellatedItem(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+IfcGeometry GenerateIfcTessellatedItem(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCINDEXEDPOLYGONALFACE:
 				return GenerateIfcIndexedPolygonalFace(expressID,lineType,loader,cache,settings,cacheOff);
@@ -519,7 +519,7 @@ IfcGeometry GenerateIfcTessellatedItem(const uint32_t expressID, const uint32_t 
 	IfcGeometry result;
 	return result;
 	}
-IfcGeometry GenerateIfcIndexedPolygonalFace(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+IfcGeometry GenerateIfcIndexedPolygonalFace(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCINDEXEDPOLYGONALFACEWITHVOIDS:
 				return GenerateIfcIndexedPolygonalFaceWithVoids(expressID,lineType,loader,cache,settings,cacheOff);
@@ -528,7 +528,7 @@ IfcGeometry GenerateIfcIndexedPolygonalFace(const uint32_t expressID, const uint
 				return GenerateIfcIndexedPolygonalFaceImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-IfcGeometry GenerateIfcTessellatedFaceSet(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+IfcGeometry GenerateIfcTessellatedFaceSet(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCTRIANGULATEDFACESET:
 				return GenerateIfcTriangulatedFaceSet(expressID,lineType,loader,cache,settings,cacheOff);
@@ -540,7 +540,7 @@ IfcGeometry GenerateIfcTessellatedFaceSet(const uint32_t expressID, const uint32
 	IfcGeometry result;
 	return result;
 	}
-IfcGeometry GenerateIfcTriangulatedFaceSet(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+IfcGeometry GenerateIfcTriangulatedFaceSet(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCTRIANGULATEDIRREGULARNETWORK:
 				return GenerateIfcTriangulatedIrregularNetwork(expressID,lineType,loader,cache,settings,cacheOff);
@@ -549,7 +549,7 @@ IfcGeometry GenerateIfcTriangulatedFaceSet(const uint32_t expressID, const uint3
 				return GenerateIfcTriangulatedFaceSetImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-IfcGeometry GenerateIfcTextLiteral(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+IfcGeometry GenerateIfcTextLiteral(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCTEXTLITERALWITHEXTENT:
 				return GenerateIfcTextLiteralWithExtent(expressID,lineType,loader,cache,settings,cacheOff);
@@ -558,7 +558,7 @@ IfcGeometry GenerateIfcTextLiteral(const uint32_t expressID, const uint32_t line
 				return GenerateIfcTextLiteralImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-IfcGeometry GenerateIfcBooleanResult(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+IfcGeometry GenerateIfcBooleanResult(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCBOOLEANCLIPPINGRESULT:
 				return GenerateIfcBooleanClippingResult(expressID,lineType,loader,cache,settings,cacheOff);
@@ -567,7 +567,7 @@ IfcGeometry GenerateIfcBooleanResult(const uint32_t expressID, const uint32_t li
 				return GenerateIfcBooleanResultImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-std::variant<std::vector<glm::dvec2>,std::vector<glm::dvec3>> GenerateIfcCartesianPointList(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::variant<std::vector<glm::dvec2>,std::vector<glm::dvec3>> GenerateIfcCartesianPointList(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCCARTESIANPOINTLIST2D:
 				return GenerateIfcCartesianPointList2D(expressID,lineType,loader,cache,settings,cacheOff);
@@ -579,7 +579,7 @@ std::variant<std::vector<glm::dvec2>,std::vector<glm::dvec3>> GenerateIfcCartesi
 	std::variant<std::vector<glm::dvec2>,std::vector<glm::dvec3>> result;
 	return result;
 	}
-std::variant<glm::dmat2,glm::dmat4> GenerateIfcCartesianTransformationOperator(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::variant<glm::dmat2,glm::dmat4> GenerateIfcCartesianTransformationOperator(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCCARTESIANTRANSFORMATIONOPERATOR2D:
 				return GenerateIfcCartesianTransformationOperator2D(expressID,lineType,loader,cache,settings,cacheOff);
@@ -591,7 +591,7 @@ std::variant<glm::dmat2,glm::dmat4> GenerateIfcCartesianTransformationOperator(c
 	std::variant<glm::dmat2,glm::dmat4> result;
 	return result;
 	}
-glm::dmat2 GenerateIfcCartesianTransformationOperator2D(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+glm::dmat2 GenerateIfcCartesianTransformationOperator2D(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCCARTESIANTRANSFORMATIONOPERATOR2DNONUNIFORM:
 				return GenerateIfcCartesianTransformationOperator2DnonUniform(expressID,lineType,loader,cache,settings,cacheOff);
@@ -600,7 +600,7 @@ glm::dmat2 GenerateIfcCartesianTransformationOperator2D(const uint32_t expressID
 				return GenerateIfcCartesianTransformationOperator2DImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-glm::dmat4 GenerateIfcCartesianTransformationOperator3D(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+glm::dmat4 GenerateIfcCartesianTransformationOperator3D(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCCARTESIANTRANSFORMATIONOPERATOR3DNONUNIFORM:
 				return GenerateIfcCartesianTransformationOperator3DnonUniform(expressID,lineType,loader,cache,settings,cacheOff);
@@ -609,7 +609,7 @@ glm::dmat4 GenerateIfcCartesianTransformationOperator3D(const uint32_t expressID
 				return GenerateIfcCartesianTransformationOperator3DImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-IfcGeometry GenerateIfcCsgPrimitive3D(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+IfcGeometry GenerateIfcCsgPrimitive3D(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCRECTANGULARPYRAMID:
 				return GenerateIfcRectangularPyramid(expressID,lineType,loader,cache,settings,cacheOff);
@@ -630,7 +630,7 @@ IfcGeometry GenerateIfcCsgPrimitive3D(const uint32_t expressID, const uint32_t l
 	IfcGeometry result;
 	return result;
 	}
-std::vector<glm::dvec3> GenerateIfcCurve(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcCurve(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCLINE:
 				return GenerateIfcLine(expressID,lineType,loader,cache,settings,cacheOff);
@@ -660,7 +660,7 @@ std::vector<glm::dvec3> GenerateIfcCurve(const uint32_t expressID, const uint32_
 	std::vector<glm::dvec3> result;
 	return result;
 	}
-std::vector<glm::dvec3> GenerateIfcOffsetCurve(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcOffsetCurve(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCOFFSETCURVE2D:
 				return GenerateIfcOffsetCurve2D(expressID,lineType,loader,cache,settings,cacheOff);
@@ -675,7 +675,7 @@ std::vector<glm::dvec3> GenerateIfcOffsetCurve(const uint32_t expressID, const u
 	std::vector<glm::dvec3> result;
 	return result;
 	}
-std::vector<glm::dvec3> GenerateIfcSpiral(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcSpiral(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCTHIRDORDERPOLYNOMIALSPIRAL:
 				return GenerateIfcThirdOrderPolynomialSpiral(expressID,lineType,loader,cache,settings,cacheOff);
@@ -699,7 +699,7 @@ std::vector<glm::dvec3> GenerateIfcSpiral(const uint32_t expressID, const uint32
 	std::vector<glm::dvec3> result;
 	return result;
 	}
-std::vector<glm::dvec3> GenerateIfcSurfaceCurve(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcSurfaceCurve(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCINTERSECTIONCURVE:
 				return GenerateIfcIntersectionCurve(expressID,lineType,loader,cache,settings,cacheOff);
@@ -711,7 +711,7 @@ std::vector<glm::dvec3> GenerateIfcSurfaceCurve(const uint32_t expressID, const 
 				return GenerateIfcSurfaceCurveImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-std::vector<glm::dvec3> GenerateIfcBoundedCurve(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcBoundedCurve(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCCOMPOSITECURVE:
 				return GenerateIfcCompositeCurve(expressID,lineType,loader,cache,settings,cacheOff);
@@ -732,7 +732,7 @@ std::vector<glm::dvec3> GenerateIfcBoundedCurve(const uint32_t expressID, const 
 	std::vector<glm::dvec3> result;
 	return result;
 	}
-std::vector<glm::dvec3> GenerateIfcCompositeCurve(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcCompositeCurve(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCCOMPOSITECURVEONSURFACE:
 				return GenerateIfcCompositeCurveOnSurface(expressID,lineType,loader,cache,settings,cacheOff);
@@ -747,7 +747,7 @@ std::vector<glm::dvec3> GenerateIfcCompositeCurve(const uint32_t expressID, cons
 				return GenerateIfcCompositeCurveImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-std::vector<glm::dvec3> GenerateIfcCompositeCurveOnSurface(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcCompositeCurveOnSurface(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCBOUNDARYCURVE:
 				return GenerateIfcBoundaryCurve(expressID,lineType,loader,cache,settings,cacheOff);
@@ -756,7 +756,7 @@ std::vector<glm::dvec3> GenerateIfcCompositeCurveOnSurface(const uint32_t expres
 				return GenerateIfcCompositeCurveOnSurfaceImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-std::vector<glm::dvec3> GenerateIfcBoundaryCurve(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcBoundaryCurve(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCOUTERBOUNDARYCURVE:
 				return GenerateIfcOuterBoundaryCurve(expressID,lineType,loader,cache,settings,cacheOff);
@@ -765,7 +765,7 @@ std::vector<glm::dvec3> GenerateIfcBoundaryCurve(const uint32_t expressID, const
 				return GenerateIfcBoundaryCurveImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-std::vector<glm::dvec3> GenerateIfcBSplineCurve(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcBSplineCurve(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCBSPLINECURVEWITHKNOTS:
 				return GenerateIfcBSplineCurveWithKnots(expressID,lineType,loader,cache,settings,cacheOff);
@@ -774,7 +774,7 @@ std::vector<glm::dvec3> GenerateIfcBSplineCurve(const uint32_t expressID, const 
 	std::vector<glm::dvec3> result;
 	return result;
 	}
-std::vector<glm::dvec3> GenerateIfcBSplineCurveWithKnots(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcBSplineCurveWithKnots(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCRATIONALBSPLINECURVEWITHKNOTS:
 				return GenerateIfcRationalBSplineCurveWithKnots(expressID,lineType,loader,cache,settings,cacheOff);
@@ -783,7 +783,7 @@ std::vector<glm::dvec3> GenerateIfcBSplineCurveWithKnots(const uint32_t expressI
 				return GenerateIfcBSplineCurveWithKnotsImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-std::vector<glm::dvec3> GenerateIfcConic(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff) {
+std::vector<glm::dvec3> GenerateIfcConic(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCELLIPSE:
 				return GenerateIfcEllipse(expressID,lineType,loader,cache,settings,cacheOff);

@@ -95,7 +95,7 @@ header.push(" template <typename TargetVariant, typename SourceVariant> TargetVa
 routing.push("namespace webifc::geometry::generators {")
 fs.mkdir("../cpp/web-ifc/geometry/generators/implementation/", { recursive: true }, () => {});
 
-let parameters = "const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff"
+let parameters = "const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff"
 let parametersNames = "expressID,lineType,loader,cache,settings,cacheOff"
 
 for (let element of representationElements) {
@@ -138,8 +138,8 @@ for (let element of representationElements) {
 		implementation.push("#include <spdlog/spdlog.h>")
 		implementation.push(`#include "../generators.h"`)
 		implementation.push("namespace webifc::geometry::generators {")
-		if (children.length > 0) implementation.push(`\t${getReturnTypeRaw(element.name)} Generate${element.name}Impl(${parameters}) {`)
-		else implementation.push(`\t${getReturnTypeRaw(element.name)} Generate${element.name}(${parameters}) {`)
+		if (children.length > 0) implementation.push(`\t${getReturnTypeRaw(element.name)} Generate${element.name}Impl(${parameters.replace(" lineType","")}) {`)
+		else implementation.push(`\t${getReturnTypeRaw(element.name)} Generate${element.name}(${parameters.replace(" lineType","")}) {`)
 		implementation.push(`\t\tif (!cacheOff) {`)
 		implementation.push(`\t\t\tauto cacheHit = cache.Get<${getReturnTypeRaw(element.name)}>(expressID);`)
 		implementation.push(`\t\t\tif (cacheHit.has_value()) return cacheHit->get();`)
