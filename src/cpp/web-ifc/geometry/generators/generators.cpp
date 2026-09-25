@@ -105,7 +105,7 @@ std::vector<glm::dvec3> GenerateIfcLoop(const uint32_t expressID, const uint32_t
 				return GenerateIfcLoopImpl(expressID,lineType,loader,cache,settings,cacheOff);
 		}
 	}
-std::variant<IfcGeometry,glm::dvec4,glm::dmat4,std::vector<glm::dvec3>,glm::dvec3,std::vector<glm::dvec2>,glm::dmat2> GenerateIfcGeometricRepresentationItem(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
+std::variant<IfcGeometry,glm::dvec4,glm::dmat4,std::vector<glm::dvec3>,glm::dvec3,std::vector<glm::dvec2>,glm::dmat3> GenerateIfcGeometricRepresentationItem(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCGEOMETRICSET:
 				return GenerateIfcGeometricSet(expressID,lineType,loader,cache,settings,cacheOff);
@@ -159,10 +159,10 @@ std::variant<IfcGeometry,glm::dvec4,glm::dmat4,std::vector<glm::dvec3>,glm::dvec
 				return GenerateIfcBoundingBox(expressID,lineType,loader,cache,settings,cacheOff);
 				break;
 			 case webifc::schema::IFCCARTESIANPOINTLIST:
-				return variant_cast<std::variant<IfcGeometry,glm::dvec4,glm::dmat4,std::vector<glm::dvec3>,glm::dvec3,std::vector<glm::dvec2>,glm::dmat2>>(GenerateIfcCartesianPointList(expressID,lineType,loader,cache,settings,cacheOff));
+				return variant_cast<std::variant<IfcGeometry,glm::dvec4,glm::dmat4,std::vector<glm::dvec3>,glm::dvec3,std::vector<glm::dvec2>,glm::dmat3>>(GenerateIfcCartesianPointList(expressID,lineType,loader,cache,settings,cacheOff));
 				break;
 			 case webifc::schema::IFCCARTESIANTRANSFORMATIONOPERATOR:
-				return variant_cast<std::variant<IfcGeometry,glm::dvec4,glm::dmat4,std::vector<glm::dvec3>,glm::dvec3,std::vector<glm::dvec2>,glm::dmat2>>(GenerateIfcCartesianTransformationOperator(expressID,lineType,loader,cache,settings,cacheOff));
+				return variant_cast<std::variant<IfcGeometry,glm::dvec4,glm::dmat4,std::vector<glm::dvec3>,glm::dvec3,std::vector<glm::dvec2>,glm::dmat3>>(GenerateIfcCartesianTransformationOperator(expressID,lineType,loader,cache,settings,cacheOff));
 				break;
 			 case webifc::schema::IFCCSGPRIMITIVE3D:
 				return GenerateIfcCsgPrimitive3D(expressID,lineType,loader,cache,settings,cacheOff);
@@ -183,7 +183,7 @@ std::variant<IfcGeometry,glm::dvec4,glm::dmat4,std::vector<glm::dvec3>,glm::dvec
 				return GenerateIfcFillAreaStyleTiles(expressID,lineType,loader,cache,settings,cacheOff);
 				break;
 		}
-	std::variant<IfcGeometry,glm::dvec4,glm::dmat4,std::vector<glm::dvec3>,glm::dvec3,std::vector<glm::dvec2>,glm::dmat2> result;
+	std::variant<IfcGeometry,glm::dvec4,glm::dmat4,std::vector<glm::dvec3>,glm::dvec3,std::vector<glm::dvec2>,glm::dmat3> result;
 	return result;
 	}
 IfcGeometry GenerateIfcGeometricSet(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
@@ -579,7 +579,7 @@ std::variant<std::vector<glm::dvec2>,std::vector<glm::dvec3>> GenerateIfcCartesi
 	std::variant<std::vector<glm::dvec2>,std::vector<glm::dvec3>> result;
 	return result;
 	}
-std::variant<glm::dmat2,glm::dmat4> GenerateIfcCartesianTransformationOperator(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
+std::variant<glm::dmat3,glm::dmat4> GenerateIfcCartesianTransformationOperator(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCCARTESIANTRANSFORMATIONOPERATOR2D:
 				return GenerateIfcCartesianTransformationOperator2D(expressID,lineType,loader,cache,settings,cacheOff);
@@ -588,10 +588,10 @@ std::variant<glm::dmat2,glm::dmat4> GenerateIfcCartesianTransformationOperator(c
 				return GenerateIfcCartesianTransformationOperator3D(expressID,lineType,loader,cache,settings,cacheOff);
 				break;
 		}
-	std::variant<glm::dmat2,glm::dmat4> result;
+	std::variant<glm::dmat3,glm::dmat4> result;
 	return result;
 	}
-glm::dmat2 GenerateIfcCartesianTransformationOperator2D(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
+glm::dmat3 GenerateIfcCartesianTransformationOperator2D(const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, const bool cacheOff) {
 		switch(lineType) {
 			 case webifc::schema::IFCCARTESIANTRANSFORMATIONOPERATOR2DNONUNIFORM:
 				return GenerateIfcCartesianTransformationOperator2DnonUniform(expressID,lineType,loader,cache,settings,cacheOff);
