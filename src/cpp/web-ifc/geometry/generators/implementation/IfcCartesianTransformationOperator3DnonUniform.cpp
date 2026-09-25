@@ -5,7 +5,7 @@ namespace webifc::geometry::generators {
 		auto cacheHit = cache.Get<glm::dmat4>(expressID);
 		if (cacheHit.has_value()) return cacheHit->get();
 		spdlog::debug("[GenerateIfcCartesianTransformationOperator3DnonUniformImpl({})]", expressID);
-		glm::dmat4 result;
+		glm::dmat4 result = GenerateIfcCartesianTransformationOperator3DImpl(expressID,lineType,loader,cache,settings,true); 
 		
 		cache.Cache(expressID,result);
 		return result;
