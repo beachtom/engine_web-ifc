@@ -95,15 +95,15 @@ header.push(" template <typename TargetVariant, typename SourceVariant> TargetVa
 routing.push("namespace webifc::geometry::generators {")
 fs.mkdir("../cpp/web-ifc/geometry/generators/implementation/", { recursive: true }, () => {});
 
-let parameters = "const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings"
-let parametersNames = "expressID,lineType,loader,cache,settings"
+let parameters = "const uint32_t expressID, const uint32_t lineType, webifc::parsing::IfcLoader &loader, webifc::cache::IfcCache &cache, GeometryGeneratorSettings &settings, bool cacheOff"
+let parametersNames = "expressID,lineType,loader,cache,settings,cacheOff"
 
 for (let element of representationElements) {
 	let children = getImmediateChildren(entities,element.name)
 	if (children.length > 0) {
 		let returnType = getReturnType(element.name,entities);
 		
- 		header.push(`${returnType} Generate${element.name}(${parameters});`)
+ 		header.push(`${returnType} Generate${element.name}(${parameters}=false);`)
 		routing.push(`${returnType} Generate${element.name}(${parameters}) {`)
 		routing.push(`\t\tswitch(lineType) {`)
 		for (let child of children) {
@@ -133,19 +133,21 @@ for (let element of representationElements) {
 			process.exit()
 		}
 		if (children.length > 0) header.push(`${returnType} Generate${element.name}Impl(${parameters});`)
-		else header.push(`${returnType} Generate${element.name}(${parameters});`)
+		else header.push(`${returnType} Generate${element.name}(${parameters}=false);`)
 		let implementation: Array<string> = [];
 		implementation.push("#include <spdlog/spdlog.h>")
 		implementation.push(`#include "../generators.h"`)
 		implementation.push("namespace webifc::geometry::generators {")
 		if (children.length > 0) implementation.push(`\t${getReturnTypeRaw(element.name)} Generate${element.name}Impl(${parameters}) {`)
 		else implementation.push(`\t${getReturnTypeRaw(element.name)} Generate${element.name}(${parameters}) {`)
-		implementation.push(`\t\tauto cacheHit = cache.Get<${getReturnTypeRaw(element.name)}>(expressID);`)
-		implementation.push(`\t\tif (cacheHit.has_value()) return cacheHit->get();`)
+		implementation.push(`\t\tif (!cacheOff) {`)
+		implementation.push(`\t\t\tauto cacheHit = cache.Get<${getReturnTypeRaw(element.name)}>(expressID);`)
+		implementation.push(`\t\t\tif (cacheHit.has_value()) return cacheHit->get();`)
+		implementation.push(`\t\t}`)
 		implementation.push(`\t\tspdlog::debug("[Generate${element.name}Impl({})]", expressID);`)
 		implementation.push(`\t\t${getReturnTypeRaw(element.name)} result;`)
 		implementation.push(`\t\t`)
-		implementation.push(`\t\tcache.Cache(expressID,result);`)
+		implementation.push(`\t\tif (!cacheOff) cache.Cache(expressID,result);`)
 		implementation.push(`\t\treturn result;`)
 		implementation.push(`\t}`)
 		implementation.push("}");
